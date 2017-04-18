@@ -44,6 +44,11 @@ class SimulatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /** Start/Stop Btn */
+        controlAnimationBtn.layer.borderColor = UIColor.white.cgColor
+        controlAnimationBtn.layer.borderWidth = 3
+        controlAnimationBtn.layer.cornerRadius = 15
+        
         /** Set-up initial lights */
         lightNorth.image = Light.green.image
         lightSouth.image = Light.green.image
