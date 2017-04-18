@@ -1,6 +1,6 @@
 # Safe Traffic
 
-Brought to you by Sydney-o9.
+Brought to you by @SafetyCulture.
 
 ## Introduction
 

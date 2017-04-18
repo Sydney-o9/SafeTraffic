@@ -11,26 +11,61 @@ import XCTest
 
 class SafeTrafficTests: XCTestCase {
     
+    var vc: SimulatorViewController!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        vc = storyboard.instantiateInitialViewController() as! SimulatorViewController
+
     }
     
+    func testViewDidLoad() {
+        
+        let _ = vc.view
+        
+        /** Testing initial values Simulator */
+        XCTAssert(vc.lightNorth.image == UIImage(named: "Light-Green"))
+        XCTAssert(vc.lightSouth.image == UIImage(named: "Light-Green"))
+        XCTAssert(vc.lightWest.image == UIImage(named: "Light-Red"))
+        XCTAssert(vc.lightEast.image == UIImage(named: "Light-Red"))
+        
+        /** Testing initial values Counter */
+        XCTAssert(vc.counterProgressView.progress == 1.0)
+        XCTAssert(vc.counterProgressView.progressTintColor == UIColor.green)
+    }
+    
+    func testOnTouchControlAnimationBtn() {
+        
+        let _ = vc.view
+        
+        XCTAssert(vc.isAnimationRunning == false)
+        
+        vc.controlAnimationBtn.sendActions(for: .touchUpInside)
+        XCTAssert(vc.isAnimationRunning == true)
+        XCTAssert(vc.controlAnimationBtn.currentTitle == "Stop")
+        
+        vc.controlAnimationBtn.sendActions(for: .touchUpInside);
+        XCTAssert(vc.isAnimationRunning == false)
+        XCTAssert(vc.controlAnimationBtn.currentTitle == "Start")
+    }
+
+    
+    func testStartAnimation() {
+        
+        let _ = vc.view
+        
+        XCTAssert(vc.isAnimationRunning == false)
+        vc.startAnimation()
+        
+    }
+    
+    
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+
     
 }

@@ -1,5 +1,5 @@
 /**
- *  ViewController.swift
+ *  SimulatorViewController.swift
  *  SafeTraffic
  *
  *  Created by Sydney-o9 <anthony.rey21@gmail.com>
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SimulatorViewController: UIViewController {
     
     @IBOutlet weak var controlAnimationBtn: UIButton!
     @IBOutlet weak var lightNorth: UIImageView!
@@ -43,6 +43,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /** Set-up initial lights */
+        lightNorth.image = Light.green.image
+        lightSouth.image = Light.green.image
+        lightWest.image = Light.red.image
+        lightEast.image = Light.red.image
+        
+        /** Set-up initial counter */
         counterProgressView.setProgress(1.0, animated: true)
         counterProgressView.progressTintColor = UIColor.green
     }
@@ -57,9 +65,9 @@ class ViewController: UIViewController {
     @IBAction func onTouchControlAnimationBtn(_ sender: Any) {
         if (!isAnimationRunning) {
             startAnimation()
-            controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
+        controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
         } else {
-            controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
+        controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
         }
         isAnimationRunning = !isAnimationRunning
     }
@@ -68,12 +76,6 @@ class ViewController: UIViewController {
      * @brief Start the simulation
      */
     func startAnimation() {
-        
-        /** Set-up initial lights */
-        lightNorth.image = Light.green.image
-        lightSouth.image = Light.green.image
-        lightWest.image = Light.red.image
-        lightEast.image = Light.red.image
         
         /** Start Counter */
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
