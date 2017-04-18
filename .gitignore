@@ -1,0 +1,7 @@
+# https://github.com/Sydney-o9/SafeTraffic
+
+# IDE
+.idea
+
+# OS generated files #
+.DS_Store
