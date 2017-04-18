@@ -8,6 +8,21 @@
 
 import UIKit
 
+/*!
+ * @brief UIView Extension, animate label up transition
+ */
+extension UIView {
+    func pushUpTransition(_ duration:CFTimeInterval) {
+        let animation:CATransition = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromTop
+        animation.duration = duration
+        layer.add(animation, forKey: kCATransitionPush)
+    }
+}
+
 class SimulatorViewController: UIViewController {
     
     @IBOutlet weak var controlAnimationBtn: UIButton!
@@ -34,10 +49,13 @@ class SimulatorViewController: UIViewController {
     var isNorthLightRed: Bool = false // Whether North Light is Red or not
     var currentCount:Int = 30 { // Timer running for 30 seconds
         didSet {
-            let fractionalProgress = (Float(currentCount) * 100.0 / 30.0) / 100.0
-            let animated: Bool = (currentCount != 30)
-            counterProgressView.setProgress(fractionalProgress, animated: animated)
+           UIView.animate(withDuration: 1.0, animations: { () -> Void in
+                let fractionalProgress = (Float(self.currentCount) * 100.0 / 30.0) / 100.0
+                self.counterProgressView.setProgress(fractionalProgress, animated: true)
+            })
+            counterLabel.pushUpTransition(1.0)
             counterLabel.text = ("\(currentCount)")
+            
         }
     }
     
