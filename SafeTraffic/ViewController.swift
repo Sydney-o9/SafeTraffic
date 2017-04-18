@@ -15,42 +15,137 @@ class ViewController: UIViewController {
     @IBOutlet weak var lightWest: UIImageView!
     @IBOutlet weak var lightSouth: UIImageView!
     @IBOutlet weak var lightEast: UIImageView!
+    @IBOutlet weak var counterLabel: UILabel!
+    @IBOutlet weak var counterProgressView: UIProgressView!
     
-    var animationRunning: Bool = false;
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("ViewDidLoad")
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func onTouchControlAnimationBtn(_ sender: Any) {
-        print("Touched Button")
-        if (animationRunning == false) {
-            print("---> Starting Simulation.")
-            controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
-            animationRunning = true
-            
-            lightNorth.image = UIImage(named: "Light-Green")!
-            lightSouth.image = UIImage(named: "Light-Green")!
-            
-            lightWest.image = UIImage(named: "Light-Red")!
-            lightEast.image = UIImage(named: "Light-Red")!
-            
-        } else {
-            print("---> Stopping Simulation.")
-            controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
-            animationRunning = false
+    enum Light {
+        case green, yellow, red
+        var image: UIImage {
+            switch self {
+            case .green: return UIImage(named: "Light-Green")!
+            case .yellow: return UIImage(named: "Light-Yellow")!
+            case .red: return UIImage(named: "Light-Red")!
+            }
         }
         
     }
     
+    var isAnimationRunning: Bool = false // Whether the animation is running or not
+    var isNorthLightRed: Bool = false // Whether North Light is Red or not
+    var currentCount:Int = 30 { // Timer running for 30 seconds
+        didSet {
+            let fractionalProgress = (Float(currentCount) * 100.0 / 30.0) / 100.0
+            let animated: Bool = (currentCount != 30)
+            counterProgressView.setProgress(fractionalProgress, animated: animated)
+            counterLabel.text = ("\(currentCount)")
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        counterProgressView.setProgress(1.0, animated: true)
+        counterProgressView.progressTintColor = UIColor.green
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    /*!
+     * @brief When user touches Start/Stop Btn
+     */
+    @IBAction func onTouchControlAnimationBtn(_ sender: Any) {
+        if (!isAnimationRunning) {
+            startAnimation()
+            controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
+        } else {
+            controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
+        }
+        isAnimationRunning = !isAnimationRunning
+    }
     
+    /*!
+     * @brief Start the simulation
+     */
+    func startAnimation() {
+        
+        /** Set-up initial lights */
+        lightNorth.image = Light.green.image
+        lightSouth.image = Light.green.image
+        lightWest.image = Light.red.image
+        lightEast.image = Light.red.image
+        
+        /** Start Counter */
+        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
+    
+    /*!
+     * @brief Updates the counter
+     * @param Timer
+     */
+    func updateCounter(timer: Timer) {
+        
+        if self.isAnimationRunning == false {
+            timer.invalidate()
+            return
+        }
+        
+        self.currentCount -= 1
+        if (self.currentCount == 0){
+            reinitialiseCounter()
+        }
+        
+        updateLights()
+
+    }
+    
+    /*!
+     * @brief Update Lights in the simulator
+     */
+    func updateLights(){
+        
+        if (self.isNorthLightRed == false && self.currentCount > 5) {
+            counterProgressView.progressTintColor = UIColor.green
+            
+            lightNorth.image = Light.green.image
+            lightSouth.image = Light.green.image
+            lightWest.image = Light.red.image
+            lightEast.image = Light.red.image
+            
+        } else if (self.isNorthLightRed == false && self.currentCount <= 5) {
+            counterProgressView.progressTintColor = UIColor.yellow
+            
+            lightNorth.image = Light.yellow.image
+            lightSouth.image = Light.yellow.image
+            lightWest.image = Light.red.image
+            lightEast.image = Light.red.image
+            
+        } else if (self.isNorthLightRed == true && self.currentCount > 5) {
+            counterProgressView.progressTintColor = UIColor.red
+            
+            lightNorth.image = Light.red.image
+            lightSouth.image = Light.red.image
+            lightWest.image = Light.green.image
+            lightEast.image = Light.green.image
+            
+        } else if (self.isNorthLightRed == true && self.currentCount <= 5) {
+            
+            lightNorth.image = Light.red.image
+            lightSouth.image = Light.red.image
+            lightWest.image = Light.yellow.image
+            lightEast.image = Light.yellow.image
+        }
+    }
+    
+    /*!
+     * @brief Re-initialised the counter back to 30s
+     */
+    func reinitialiseCounter(){
+        self.isNorthLightRed = !self.isNorthLightRed
+        self.currentCount = 30
+        
+        isNorthLightRed ? (counterProgressView.progressTintColor = UIColor.red) : (counterProgressView.progressTintColor = UIColor.green)
+    }
 
 }
 
