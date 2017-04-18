@@ -57,7 +57,23 @@ class SafeTrafficTests: XCTestCase {
         let _ = vc.view
         
         XCTAssert(vc.isAnimationRunning == false)
+        XCTAssert(vc.runningTimer == nil)
         vc.startAnimation()
+        XCTAssert(vc.runningTimer?.isValid == true)
+        
+    }
+    
+    func testStopAnimation() {
+        
+        let _ = vc.view
+        
+        XCTAssert(vc.isAnimationRunning == false)
+        XCTAssert(vc.runningTimer == nil)
+        vc.startAnimation()
+        vc.isAnimationRunning = true
+        XCTAssert(vc.runningTimer?.isValid == true)
+        vc.stopAnimation()
+        XCTAssert(vc.runningTimer == nil)
         
     }
     

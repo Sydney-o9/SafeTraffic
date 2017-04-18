@@ -40,6 +40,8 @@ class SimulatorViewController: UIViewController {
             counterLabel.text = ("\(currentCount)")
         }
     }
+    
+    weak var runningTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,20 +76,33 @@ class SimulatorViewController: UIViewController {
     @IBAction func onTouchControlAnimationBtn(_ sender: Any) {
         if (!isAnimationRunning) {
             startAnimation()
-        controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
+            controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
         } else {
-        controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
+            stopAnimation()
+            controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
         }
         isAnimationRunning = !isAnimationRunning
     }
     
     /*!
-     * @brief Start the simulation
+     * @brief Start the simulator
      */
     func startAnimation() {
         
         /** Start Counter */
-        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        runningTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
+    
+    /*!
+     * @brief Stops the simulator
+     */
+    func stopAnimation() {
+        
+        /** Stop Counter */
+        if self.isAnimationRunning == true {
+            runningTimer?.invalidate()
+            runningTimer = nil
+        }
     }
     
     /*!
@@ -95,11 +110,6 @@ class SimulatorViewController: UIViewController {
      * @param Timer
      */
     func updateCounter(timer: Timer) {
-        
-        if self.isAnimationRunning == false {
-            timer.invalidate()
-            return
-        }
         
         self.currentCount -= 1
         if (self.currentCount == 0){
