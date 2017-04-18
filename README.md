@@ -2,6 +2,9 @@
 
 Brought to you by @SafetyCulture.
 
+
+![Safe Traffic Demo](https://github.com/Sydney-o9/SafeTraffic/Doc/Demo-Safe-Traffic.gif)
+
 ## Introduction
 
 You are required to produce a singleview iOS app that simulates a set of traffic lights at an
