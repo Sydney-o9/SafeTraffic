@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,8 +33,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Safe-Traffic-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="2MI-Fe-JrO">
                                 <rect key="frame" x="24" y="196" width="335" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="335" id="1Jc-hZ-Sgo"/>
-                                    <constraint firstAttribute="height" constant="32" id="2M6-Cy-os8"/>
+                                    <constraint firstAttribute="width" secondItem="2MI-Fe-JrO" secondAttribute="height" multiplier="335:32" id="7gy-Xj-W7q"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Safety-Culture-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="gCk-5i-ERv">
@@ -46,7 +47,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gCk-5i-ERv" firstAttribute="leading" secondItem="dyI-6v-qNh" secondAttribute="trailing" constant="-124" id="SHo-cY-pXA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2MI-Fe-JrO" secondAttribute="trailing" id="VCL-iC-o4a"/>
                             <constraint firstItem="dyI-6v-qNh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="WWB-6P-Xtz"/>
+                            <constraint firstItem="2MI-Fe-JrO" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="8" id="biO-Gw-qab"/>
                             <constraint firstItem="dyI-6v-qNh" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="iEw-hb-7tY"/>
                             <constraint firstItem="dyI-6v-qNh" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="iQv-n3-Vko"/>
                             <constraint firstItem="dyI-6v-qNh" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qNw-TP-Rvd"/>
