@@ -10,8 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet weak var controlAnimationBtn: UIButton!
+    @IBOutlet weak var lightNorth: UIImageView!
+    @IBOutlet weak var lightWest: UIImageView!
+    @IBOutlet weak var lightSouth: UIImageView!
+    @IBOutlet weak var lightEast: UIImageView!
     
     var animationRunning: Bool = false;
 
@@ -32,6 +35,13 @@ class ViewController: UIViewController {
             print("---> Starting Simulation.")
             controlAnimationBtn.setTitle("Stop", for: UIControlState.normal)
             animationRunning = true
+            
+            lightNorth.image = UIImage(named: "Light-Green")!
+            lightSouth.image = UIImage(named: "Light-Green")!
+            
+            lightWest.image = UIImage(named: "Light-Red")!
+            lightEast.image = UIImage(named: "Light-Red")!
+            
         } else {
             print("---> Stopping Simulation.")
             controlAnimationBtn.setTitle("Start", for: UIControlState.normal)
@@ -39,6 +49,8 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    
 
 }
 

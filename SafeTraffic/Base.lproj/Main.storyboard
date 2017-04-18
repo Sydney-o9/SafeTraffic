@@ -95,6 +95,10 @@
                     </view>
                     <connections>
                         <outlet property="controlAnimationBtn" destination="8KL-Mh-HV0" id="KEU-KG-37X"/>
+                        <outlet property="lightEast" destination="kj2-0g-FOn" id="4WU-1O-PjH"/>
+                        <outlet property="lightNorth" destination="HqJ-Ih-f9q" id="JXV-VU-pgf"/>
+                        <outlet property="lightSouth" destination="2FA-wU-84N" id="AT1-B2-yq4"/>
+                        <outlet property="lightWest" destination="Zjx-Q5-BNr" id="Mf8-bG-TNk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
